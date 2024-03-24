@@ -839,12 +839,14 @@ export interface ApiPlayerPlayer extends Schema.CollectionType {
     first_name: Attribute.String & Attribute.Required & Attribute.Unique;
     last_name: Attribute.String & Attribute.Required & Attribute.Unique;
     ranking: Attribute.BigInteger;
-    image: Attribute.Media;
     competitions: Attribute.Relation<
       'api::player.player',
       'manyToMany',
       'api::competition.competition'
     >;
+    full_name: Attribute.String & Attribute.Required & Attribute.Private;
+    slug: Attribute.UID<'api::player.player', 'full_name'>;
+    image: Attribute.Media & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

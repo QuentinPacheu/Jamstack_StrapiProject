@@ -1,7 +1,19 @@
 /**
- * player controller
- */
+player controller
+*/
 
 import { factories } from '@strapi/strapi'
 
-export default factories.createCoreController('api::player.player');
+export default factories.createCoreController('api::player.player', ({strapi}) => ({
+    async findOne(ctx) {
+        const { id } = ctx.params
+        const entity = await strapi.db.query('api::player.player').findOne({ 
+            where: { slug: id },
+            populate: ['first_name', 'last_name', 'ranking', 'imageUrl'],
+        })
+
+        const sanitizedEntity = await this.sanitizeOutput(entity, ctx)
+        return this.transformResponse(sanitizedEntity)
+    }
+    })
+);

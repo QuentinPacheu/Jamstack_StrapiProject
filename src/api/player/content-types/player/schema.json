@@ -25,19 +25,28 @@
     "ranking": {
       "type": "biginteger"
     },
-    "image": {
-      "type": "media",
-      "multiple": false,
-      "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
     "competitions": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::competition.competition",
       "inversedBy": "players"
+    },
+    "full_name": {
+      "type": "string",
+      "private": true,
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "full_name"
+    },
+    "image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
     }
   }
 }
